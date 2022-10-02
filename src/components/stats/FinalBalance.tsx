@@ -9,7 +9,7 @@ export function FinalBalance ({ stat }: Props) {
   const [open, setOpen] = useState(false)
   return (
       <StatsBlock stat={stat} title='Final Balance' onClick={() => setOpen(true)}>
-        <CreditCardIcon className="h-6 w-6 text-white" aria-hidden="true" />
+        <CreditCardIcon className="h-6 w-6 text-white" aria-hidden="true" /> {/* invisible to accessability tech */}
         <FinalBalanceModal open={open} onClose={() => setOpen(false)} />
       </StatsBlock>
   )

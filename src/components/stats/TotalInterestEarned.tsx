@@ -9,7 +9,7 @@ export function TotalInterestEarned ({ stat }: Props) {
   const [open, setOpen] = useState(false)
   return (
       <StatsBlock stat={stat} title='Total Interest Earned' onClick={() => setOpen(true)}>
-        <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+        <CurrencyDollarIcon className="h-6 w-6 text-white" aria-hidden="true" /> {/* invisible to accessability tech */}
         <InterestRateModal open={open} onClose={() => setOpen(false)} />
       </StatsBlock>
   )

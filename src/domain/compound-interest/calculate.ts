@@ -46,7 +46,7 @@ export function parseAnnualInterestRate (annualInterestRate: number): number {
 
 export function calculateCompoundInterest (input: ParsedCalculationInputs, numberOfReinvestments: number): CompoundInterestOutput {
   const annualInterestRate = parseAnnualInterestRate(input.annualInterestRate)
-  const total = Math.round(
+  const total = Math.floor(
     input.initialInvestment * (
       Math.pow(
         (1 + (annualInterestRate / numberOfReinvestments)),

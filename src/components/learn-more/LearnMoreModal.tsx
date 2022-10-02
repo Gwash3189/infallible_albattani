@@ -11,7 +11,7 @@ export function LearnMoreModal ({ children, title, onClose, open }: LearnMoreMod
     <Modal onClose={onClose} open={open}>
       <div>
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-          <QuestionMarkCircleIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
+          <QuestionMarkCircleIcon className="h-6 w-6 text-green-600" aria-hidden="true" /> {/* invisible to accessability tech */}
         </div>
         <div className="mt-3 text-center sm:mt-5">
           <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">

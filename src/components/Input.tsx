@@ -20,8 +20,8 @@ export function Input (props: InputProps) {
   if (props.error !== undefined) {
     newProps = {
       ...newProps,
-      'aria-invalid': true,
-      'aria-describedby': props.id
+      'aria-invalid': true, // to inform accessability tech that the input is invalid
+      'aria-describedby': props.id // to inform accessability tech that the input is described by the provided id
     }
   }
 

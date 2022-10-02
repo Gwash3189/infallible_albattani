@@ -6,7 +6,7 @@ export type StatsBlockProps = {
   stat: string
 } & PropsWithChildren
 
-export function StatsBlock ({ onClick, title, stat, children }: BlockProps) {
+export function StatsBlock ({ onClick, title, stat, children }: StatsBlockProps) {
   return (
     <div
       className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-6 shadow sm:px-6 sm:pt-6"
@@ -23,7 +23,7 @@ export function StatsBlock ({ onClick, title, stat, children }: BlockProps) {
           <div className="text-xs">
             <a href="#" onClick={() => onClick(true)} className="font-medium text-indigo-600 hover:text-indigo-500">
               {' '}
-              Learn more<span className="sr-only"> {title} stats</span>
+              Learn more<span className="sr-only"> {title} Stats</span> {/* invisible to users who don't use accessability tech */}
             </a>
           </div>
         </div>
