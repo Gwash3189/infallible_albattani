@@ -1,12 +1,12 @@
 import { PropsWithChildren } from 'react'
 
-export type BlockProps = {
+export type StatsBlockProps = {
   onClick: (value: boolean) => void
   title: string
   stat: string
 } & PropsWithChildren
 
-export function Block ({ onClick, title, stat, children }: BlockProps) {
+export function StatsBlock ({ onClick, title, stat, children }: BlockProps) {
   return (
     <div
       className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-6 shadow sm:px-6 sm:pt-6"

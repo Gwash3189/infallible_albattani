@@ -1,12 +1,12 @@
-import clsx from 'clsx'
 import Head from 'next/head'
 import { useState } from 'react'
 import { TotalInterestEarned } from '@/components/stats/TotalInterestEarned'
 import { FinalBalance } from '@/components/stats/FinalBalance'
 import { calculate } from '@/domain/compound-interest/calculate'
 import { InterestPayout } from '@/domain/compound-interest/types'
-import { FormInput } from '@/components/FormInput'
+import { FormInput } from '@/components/form/FormInput'
 import { getFirstErrorMessage, hasErrors } from '@/domain/formErrors'
+import { InterestButtons } from '@/components/form/InterestButtons'
 
 const Home = () => {
   const [initialInvestment, setInitialInvestment] = useState('10000')
@@ -94,39 +94,10 @@ const Home = () => {
                 </div>
               </div>
               <div className='pt-6'>
-                <label className='block font-medium text-gray-700'>
-                  When will we pay your interest out?
-                </label>
-                <span className='isolate inline-flex rounded-md shadow-sm pt-6 w-full first:rounded-l-md last:rounded-r-md'>
-                  <button
-                    onClick={() => setInterestPayoutMode(InterestPayout.monthly)}
-                    type='button'
-                    className={clsx('relative inline-flex items-center rounded-l-md flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.monthly ? 'bg-gray-100 hover:bg-gray-100' : '')}
-                  >
-                    Monthly
-                  </button>
-                  <button
-                    onClick={() => setInterestPayoutMode(InterestPayout.quarterly)}
-                    type='button'
-                    className={clsx('relative -ml-px inline-flex items-center flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.quarterly ? 'bg-gray-100 hover:bg-gray-100' : '')}
-                  >
-                    Quarterly
-                  </button>
-                  <button
-                    onClick={() => setInterestPayoutMode(InterestPayout.annually)}
-                    type='button'
-                    className={clsx('relative -ml-px inline-flex items-center flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.annually ? 'bg-gray-100 hover:bg-gray-100' : '')}
-                  >
-                    Annually
-                  </button>
-                  <button
-                    onClick={() => setInterestPayoutMode(InterestPayout.atMaturity)}
-                    type='button'
-                    className={clsx('relative -ml-px inline-flex items-center rounded-r-md flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.atMaturity ? 'bg-gray-100 hover:bg-gray-100' : '')}
-                  >
-                    At Maturity
-                  </button>
-                </span>
+                <InterestButtons
+                  onClick={(value) => setInterestPayoutMode(value)}
+                  mode={interestPayoutMode}
+                />
               </div>
             </div>
             <dl className='mt-5 grid grid-cols-1 gap-5 col-span-1 w-full'>
