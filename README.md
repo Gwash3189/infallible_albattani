@@ -17,11 +17,18 @@ to ensure the application is good to run locally
 
 ### Running locally
 
+
 Run the following in your terminal
 
 ```sh
 npm run dev
 ```
+
+### Usage
+#### Using the mouse
+![](./ferocia-takehome.gif)
+#### Using only the keyboard
+![](./ferocia-takehome-accessibility.gif)
 
 ### Tests
 
