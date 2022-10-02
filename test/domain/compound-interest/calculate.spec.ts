@@ -1,15 +1,18 @@
 import { calculate, calculateAndPayAnnually, calculateAndPayAtMaturity, calculateAndPayMonthly, calculateAndPayQuarterly, getTotalMonths, getTotalYearsInDecimalValue, parseErrorMessages, validateInput } from '@/domain/compound-interest/calculate'
-import { CalculationInputs, InterestPayout } from '@/domain/compound-interest/types'
+import { InterestPayout } from '@/domain/compound-interest/types'
 import { ZodError } from 'zod'
 
 describe(validateInput, () => {
   describe('when the input is invalid', () => {
-    expect(validateInput({
+    const input = {
       initialInvestment: '-1',
       annualInterestRate: '-1',
       months: '12',
-      years: '6'
-    } as CalculationInputs)).toHaveProperty('success', false)
+      years: '6',
+      mode: InterestPayout.annually
+    }
+
+    expect(validateInput(input)).toHaveProperty('success', false)
   })
 })
 
@@ -85,24 +88,24 @@ describe(calculateAndPayAtMaturity, () => {
         })
       })
 
-    describe('when the investment is invested for 3 1/2 years', () => {
-      const input = {
-        initialInvestment: 10_000,
-        annualInterestRate: 1.10,
-        years: 3,
-        months: 6,
-        mode: InterestPayout.atMaturity
-      }
+      describe('when the investment is invested for 3 1/2 years', () => {
+        const input = {
+          initialInvestment: 10_000,
+          annualInterestRate: 1.10,
+          years: 3,
+          months: 6,
+          mode: InterestPayout.atMaturity
+        }
 
-      it('handles the decimal number of time', () => {
-        expect(calculateAndPayAtMaturity(input)).toEqual({
-          total: 10385,
-          interestEarned: 385,
-          errors: {}
+        it('handles the decimal number of time', () => {
+          expect(calculateAndPayAtMaturity(input)).toEqual({
+            total: 10385,
+            interestEarned: 385,
+            errors: {}
+          })
         })
       })
     })
-  })
 })
 
 describe(calculateAndPayAnnually, () => {
@@ -127,24 +130,24 @@ describe(calculateAndPayAnnually, () => {
         })
       })
 
-    describe('when the investment is invested for 3 1/2 years', () => {
-      const input = {
-        initialInvestment: 10_000,
-        annualInterestRate: 1.10,
-        years: 3,
-        months: 6,
-        mode: InterestPayout.annually
-      }
+      describe('when the investment is invested for 3 1/2 years', () => {
+        const input = {
+          initialInvestment: 10_000,
+          annualInterestRate: 1.10,
+          years: 3,
+          months: 6,
+          mode: InterestPayout.annually
+        }
 
-      it('handles the decimal number of time', () => {
-        expect(calculateAndPayAnnually(input)).toEqual({
-          total: 10391,
-          interestEarned: 391,
-          errors: {}
+        it('handles the decimal number of time', () => {
+          expect(calculateAndPayAnnually(input)).toEqual({
+            total: 10391,
+            interestEarned: 391,
+            errors: {}
+          })
         })
       })
     })
-  })
 })
 
 describe(calculateAndPayQuarterly, () => {
@@ -169,24 +172,24 @@ describe(calculateAndPayQuarterly, () => {
         })
       })
 
-    describe('when the investment is invested for 3 1/2 years', () => {
-      const input = {
-        initialInvestment: 10_000,
-        annualInterestRate: 1.10,
-        years: 3,
-        months: 6,
-        mode: InterestPayout.quarterly
-      }
+      describe('when the investment is invested for 3 1/2 years', () => {
+        const input = {
+          initialInvestment: 10_000,
+          annualInterestRate: 1.10,
+          years: 3,
+          months: 6,
+          mode: InterestPayout.quarterly
+        }
 
-      it('handles the decimal number of time', () => {
-        expect(calculateAndPayQuarterly(input)).toEqual({
-          total: 10392,
-          interestEarned: 392,
-          errors: {}
+        it('handles the decimal number of time', () => {
+          expect(calculateAndPayQuarterly(input)).toEqual({
+            total: 10392,
+            interestEarned: 392,
+            errors: {}
+          })
         })
       })
     })
-  })
 })
 
 describe(calculateAndPayMonthly, () => {
@@ -211,24 +214,24 @@ describe(calculateAndPayMonthly, () => {
         })
       })
 
-    describe('when the investment is invested for 3 1/2 years', () => {
-      const input = {
-        initialInvestment: 10_000,
-        annualInterestRate: 1.10,
-        years: 3,
-        months: 6,
-        mode: InterestPayout.quarterly
-      }
+      describe('when the investment is invested for 3 1/2 years', () => {
+        const input = {
+          initialInvestment: 10_000,
+          annualInterestRate: 1.10,
+          years: 3,
+          months: 6,
+          mode: InterestPayout.quarterly
+        }
 
-      it('handles the decimal number of time', () => {
-        expect(calculateAndPayAnnually(input)).toEqual({
-          total: 10391,
-          interestEarned: 391,
-          errors: {}
+        it('handles the decimal number of time', () => {
+          expect(calculateAndPayAnnually(input)).toEqual({
+            total: 10391,
+            interestEarned: 391,
+            errors: {}
+          })
         })
       })
     })
-  })
 })
 
 describe(calculate, () => {
@@ -236,7 +239,7 @@ describe(calculate, () => {
     initialInvestment: '10000',
     annualInterestRate: '1.10',
     years: '3',
-    months: '0',
+    months: '0'
   }
 
   describe('when the provided input is invalid', () => {

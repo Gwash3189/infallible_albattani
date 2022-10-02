@@ -8,6 +8,10 @@ export function getTotalMonths (years: number, months: number): number {
 }
 
 export function validateInput (input: CalculationInputs) {
+  // zod was used to provide error messages
+  // as well as typesafe, reliable validation
+  // zod error messages are bubbled back up to the UI
+
   const floatGuard = z.preprocess(
     (value) => parseFloat(z.string().parse(value)),
     z.number().positive()
@@ -31,6 +35,7 @@ export function validateInput (input: CalculationInputs) {
   }).safeParse(input)
 }
 
+// flattens and returns zod error messages for the UI
 export function parseErrorMessages (error: ZodError): CalculationErrors {
   const flattenedErrors = error.flatten()
   return flattenedErrors.fieldErrors
@@ -46,6 +51,11 @@ export function parseAnnualInterestRate (annualInterestRate: number): number {
 
 export function calculateCompoundInterest (input: ParsedCalculationInputs, numberOfReinvestments: number): CompoundInterestOutput {
   const annualInterestRate = parseAnnualInterestRate(input.annualInterestRate)
+  // I chose to use Math.floor here as it seems like
+  // the original bendigo bank calculator is doing the same
+  // I assume this was done to avoid the **weirdness** that
+  // is math in JS.
+
   const total = Math.floor(
     input.initialInvestment * (
       Math.pow(
@@ -113,6 +123,7 @@ export function calculateAndPayAtMaturity (input: ParsedCalculationInputs): Calc
   }
 }
 
+// the main entry point to calculate compound interest
 export function calculate (input: CalculationInputs): CalculationOutputs {
   const result = validateInput(input)
 

@@ -10,6 +10,7 @@ export function StatsBlock ({ onClick, title, stat, children }: StatsBlockProps)
   return (
     <div
       className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-6 shadow sm:px-6 sm:pt-6"
+      data-testid={`${title.toLowerCase().replaceAll(' ', '-')}`}
     >
       <dt>
         <div className="absolute rounded-md bg-ferocia p-3">

@@ -12,7 +12,7 @@ export function InterestButtons ({ onClick, mode }: Props) {
       <label className='block font-medium text-gray-700'>
         When will we pay your interest out?
       </label>
-      <span className='isolate inline-flex rounded-md shadow-sm pt-6 w-full first:rounded-l-md last:rounded-r-md'>
+      <span data-testid='interest-buttons-container' className='isolate inline-flex rounded-md shadow-sm pt-6 w-full first:rounded-l-md last:rounded-r-md'>
         <InterestButton
           start
           onClick={() => onClick(InterestPayout.monthly)}
