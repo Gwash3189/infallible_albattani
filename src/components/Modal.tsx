@@ -6,6 +6,11 @@ export type ModalProps = {
   onClose: () => void
 } & PropsWithChildren
 
+// I'm standing on the shoulders of giants here and
+// making use of @headlessui (https://headlessui.com/)
+// they take care of A LOT of accessability such as focus jails
+// exiting the modal with space, esc and clicks
+
 export function Modal ({ open = false, children, onClose }: ModalProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
