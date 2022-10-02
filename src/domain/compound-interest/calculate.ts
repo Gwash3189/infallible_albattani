@@ -19,11 +19,15 @@ export function validateInput (input: CalculationInputs) {
 
   const yearsGuard = z.preprocess(
     (value) => parseInt(z.string().parse(value), 10),
+    // this maximum limit was used purely because the bendigo bank
+    // calculator has a limit of 6 years
     z.number().positive().max(5)
   )
 
   const monthsGuard = z.preprocess(
     (value) => parseInt(z.string().parse(value), 10),
+    // this maximum limit was used purely because the bendigo bank
+    // calculator has a limit of 6 years
     z.number().max(11).min(0)
   )
 
@@ -55,6 +59,11 @@ export function calculateCompoundInterest (input: ParsedCalculationInputs, numbe
   // the original bendigo bank calculator is doing the same
   // I assume this was done to avoid the **weirdness** that
   // is math in JS.
+
+  // if I was doing this in a production setting and required
+  // to ensure that math was correct, then I'd rely on a third
+  // party library to provide better math interfaces and
+  // floating point support.
 
   const total = Math.floor(
     input.initialInvestment * (
