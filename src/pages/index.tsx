@@ -1,30 +1,25 @@
 import clsx from 'clsx'
 import Head from 'next/head'
+import { useState } from 'react'
 import { TotalInterestEarned } from '@/components/stats/TotalInterestEarned'
 import { FinalBalance } from '@/components/stats/FinalBalance'
-import { useState } from 'react'
-import { calculateCompoundInterest } from '@/domain/calculateCompoundInterest'
+import { calculate } from '@/domain/compound-interest/calculate'
+import { InterestPayout } from '@/domain/compound-interest/types'
 import { FormInput } from '@/components/FormInput'
 import { getFirstErrorMessage, hasErrors } from '@/domain/formErrors'
-
-enum InterestPayout {
-  monthly,
-  quarterly,
-  annually,
-  atMaturity
-}
 
 const Home = () => {
   const [initialInvestment, setInitialInvestment] = useState('10000')
   const [interestRate, setInterestRate] = useState('1.10')
   const [totalYears, setTotalYears] = useState('3')
   const [totalMonths, setTotalMonths] = useState('0')
-  const [interestPayout, setInterestPayout] = useState<InterestPayout>(InterestPayout.atMaturity)
-  const { total, interestEarned, errors } = calculateCompoundInterest({
+  const [interestPayoutMode, setInterestPayoutMode] = useState<InterestPayout>(InterestPayout.atMaturity)
+  const { total, interestEarned, errors } = calculate({
     annualInterestRate: interestRate,
     years: totalYears,
     months: totalMonths,
-    initialInvestment
+    initialInvestment,
+    mode: interestPayoutMode
   })
 
   return (
@@ -64,7 +59,6 @@ const Home = () => {
                 className='block w-full rounded-md border-gray-300 focus:border-ferocia sm:text-sm'
                 placeholder='1.10'
               />
-
               <div className='grid grid-cols-1 md:grid-cols-2'>
                 <div className='col-span-1'>
                   <FormInput
@@ -105,30 +99,30 @@ const Home = () => {
                 </label>
                 <span className='isolate inline-flex rounded-md shadow-sm pt-6 w-full first:rounded-l-md last:rounded-r-md'>
                   <button
-                    onClick={() => setInterestPayout(InterestPayout.monthly)}
+                    onClick={() => setInterestPayoutMode(InterestPayout.monthly)}
                     type='button'
-                    className={clsx('relative inline-flex items-center rounded-l-md flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayout === InterestPayout.monthly ? 'bg-gray-100 hover:bg-gray-100' : '')}
+                    className={clsx('relative inline-flex items-center rounded-l-md flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.monthly ? 'bg-gray-100 hover:bg-gray-100' : '')}
                   >
                     Monthly
                   </button>
                   <button
-                    onClick={() => setInterestPayout(InterestPayout.quarterly)}
+                    onClick={() => setInterestPayoutMode(InterestPayout.quarterly)}
                     type='button'
-                    className={clsx('relative -ml-px inline-flex items-center flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayout === InterestPayout.quarterly ? 'bg-gray-100 hover:bg-gray-100' : '')}
+                    className={clsx('relative -ml-px inline-flex items-center flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.quarterly ? 'bg-gray-100 hover:bg-gray-100' : '')}
                   >
                     Quarterly
                   </button>
                   <button
-                    onClick={() => setInterestPayout(InterestPayout.annually)}
+                    onClick={() => setInterestPayoutMode(InterestPayout.annually)}
                     type='button'
-                    className={clsx('relative -ml-px inline-flex items-center flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayout === InterestPayout.annually ? 'bg-gray-100 hover:bg-gray-100' : '')}
+                    className={clsx('relative -ml-px inline-flex items-center flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.annually ? 'bg-gray-100 hover:bg-gray-100' : '')}
                   >
                     Annually
                   </button>
                   <button
-                    onClick={() => setInterestPayout(InterestPayout.atMaturity)}
+                    onClick={() => setInterestPayoutMode(InterestPayout.atMaturity)}
                     type='button'
-                    className={clsx('relative -ml-px inline-flex items-center rounded-r-md flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayout === InterestPayout.atMaturity ? 'bg-gray-100 hover:bg-gray-100' : '')}
+                    className={clsx('relative -ml-px inline-flex items-center rounded-r-md flex-auto px-2 py-2 justify-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-ferocia focus:outline-none focus:ring-1 focus:ring-ferocia', interestPayoutMode === InterestPayout.atMaturity ? 'bg-gray-100 hover:bg-gray-100' : '')}
                   >
                     At Maturity
                   </button>
