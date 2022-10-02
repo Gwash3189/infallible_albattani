@@ -6,7 +6,6 @@ export type InputProps = {
 } & DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 export function Input (props: InputProps) {
-  console.log(props.error)
   let newProps: InputProps = {
     ...props,
     className: clsx(
