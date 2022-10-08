@@ -27,7 +27,7 @@ describe(Home, () => {
     })
 
     describe('when the interest rate input is rendered', () => {
-      it('it has a default value of 10000', () => {
+      it('it has a default value of 1.10', () => {
         expect(screen.getByTestId('interestRate-input')).toHaveValue(1.10)
       })
 
@@ -45,7 +45,7 @@ describe(Home, () => {
     })
 
     describe('when the years input is rendered', () => {
-      it('it has a default value of 10000', () => {
+      it('it has a default value of 3', () => {
         expect(screen.getByTestId('investmentTermYears-input')).toHaveValue(3)
       })
 
@@ -55,7 +55,7 @@ describe(Home, () => {
     })
 
     describe('when the months input is rendered', () => {
-      it('it has a default value of 10000', () => {
+      it('it has a default value of 0', () => {
         expect(screen.getByTestId('investmentTermMonths-input')).toHaveValue(0)
       })
 
