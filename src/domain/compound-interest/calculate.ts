@@ -3,7 +3,7 @@ import { CalculationOutputs, CalculationInputs, CalculationErrors, ParsedCalcula
 
 type CompoundInterestOutput = Omit<CalculationOutputs, 'errors'>
 
-export function getTotalMonths (years: number, months: number): number {
+export function getTotalMonths ({ years, months }: {years: number, months: number}): number {
   return (years * 12) + months
 }
 
@@ -45,8 +45,8 @@ export function parseErrorMessages (error: ZodError): CalculationErrors {
   return flattenedErrors.fieldErrors
 }
 
-export function getTotalYearsInDecimalValue (years: number, months: number): number {
-  return getTotalMonths(years, months) / 12
+export function getTotalYearsInDecimalValue ({years, months}: {years: number, months: number}): number {
+  return getTotalMonths({ years, months }) / 12
 }
 
 export function parseAnnualInterestRate (annualInterestRate: number): number {
@@ -69,7 +69,7 @@ export function calculateCompoundInterest (input: ParsedCalculationInputs, numbe
     input.initialInvestment * (
       Math.pow(
         (1 + (annualInterestRate / numberOfReinvestments)),
-        (numberOfReinvestments * getTotalYearsInDecimalValue(input.years, input.months))
+        (numberOfReinvestments * getTotalYearsInDecimalValue({years: input.years, months: input.months}))
       )
     )
   )
@@ -82,7 +82,7 @@ export function calculateCompoundInterest (input: ParsedCalculationInputs, numbe
 }
 
 export function calculateAndPayMonthly (input: ParsedCalculationInputs): CalculationOutputs {
-  const numberOfReinvestments = getTotalMonths(input.years, input.months) // find how many quarters are in the decimal (3 years in months is 36. 36 / 3 is 12)
+  const numberOfReinvestments = getTotalMonths({ years: input.years, months: input.months }) // find how many quarters are in the decimal (3 years in months is 36. 36 / 3 is 12)
   const { total, interestEarned } = calculateCompoundInterest(input, numberOfReinvestments)
 
   return {
@@ -94,7 +94,7 @@ export function calculateAndPayMonthly (input: ParsedCalculationInputs): Calcula
 
 export function calculateAndPayQuarterly (input: ParsedCalculationInputs): CalculationOutputs {
   const monthsInAQuarter = 3
-  const numberOfReinvestments = getTotalMonths(input.years, input.months) / monthsInAQuarter // find how many quarters are in the decimal (3 years in months is 36. 36 / 3 is 12)
+  const numberOfReinvestments = getTotalMonths({ years: input.years, months: input.months }) / monthsInAQuarter // find how many quarters are in the decimal (3 years in months is 36. 36 / 3 is 12)
   const { total, interestEarned } = calculateCompoundInterest(input, numberOfReinvestments)
 
   return {
@@ -105,7 +105,7 @@ export function calculateAndPayQuarterly (input: ParsedCalculationInputs): Calcu
 }
 
 export function calculateAndPayAnnually (input: ParsedCalculationInputs): CalculationOutputs {
-  const totalYears = getTotalYearsInDecimalValue(input.years, input.months) // 3 years and 0 months -> 3.0
+  const totalYears = getTotalYearsInDecimalValue({years: input.years, months: input.months }) // 3 years and 0 months -> 3.}0
   const numberOfReinvestments = Math.floor(totalYears) // its only reinvested once a year, so round down any decimals
   const { total, interestEarned } = calculateCompoundInterest(input, numberOfReinvestments)
 
@@ -117,7 +117,7 @@ export function calculateAndPayAnnually (input: ParsedCalculationInputs): Calcul
 }
 
 export function calculateAndPayAtMaturity (input: ParsedCalculationInputs): CalculationOutputs {
-  const totalYearsInDecimalValue = getTotalYearsInDecimalValue(input.years, input.months)
+  const totalYearsInDecimalValue = getTotalYearsInDecimalValue({years: input.years, months: input.months})
   const interestEarned = Math.round(
     (
       (input.initialInvestment * (parseAnnualInterestRate(input.annualInterestRate))) *
