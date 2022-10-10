@@ -20,13 +20,16 @@ const Home = () => {
   const [totalYears, setTotalYears] = useState('3')
   const [totalMonths, setTotalMonths] = useState('0')
   const [interestPayoutMode, setInterestPayoutMode] = useState<InterestPayout>(InterestPayout.atMaturity)
-  const { total, interestEarned, errors } = calculate({
+  let { total, interestEarned, errors } = calculate({
     annualInterestRate: interestRate,
     years: totalYears,
     months: totalMonths,
     initialInvestment,
     mode: interestPayoutMode
   })
+
+  const finalTotal = total.toFixed(2)
+  const finalInterestEarned = interestEarned.toFixed(2)
 
   return (
     <>
@@ -108,10 +111,10 @@ const Home = () => {
             </div>
             <dl className='mt-5 grid grid-cols-1 gap-5 col-span-1 w-full'>
               <TotalInterestEarned
-                stat={`$${interestEarned}`}
+                stat={`$${finalInterestEarned}`}
               />
               <FinalBalance
-                stat={`$${total}`}
+                stat={`$${finalTotal}`}
               />
             </dl>
           </div>

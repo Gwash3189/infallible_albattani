@@ -27,7 +27,7 @@ describe(Home, () => {
     })
 
     describe('when the interest rate input is rendered', () => {
-      it('it has a default value of 10000', () => {
+      it('it has a default value of 1.10', () => {
         expect(screen.getByTestId('interestRate-input')).toHaveValue(1.10)
       })
 
@@ -45,7 +45,7 @@ describe(Home, () => {
     })
 
     describe('when the years input is rendered', () => {
-      it('it has a default value of 10000', () => {
+      it('it has a default value of 3', () => {
         expect(screen.getByTestId('investmentTermYears-input')).toHaveValue(3)
       })
 
@@ -55,7 +55,7 @@ describe(Home, () => {
     })
 
     describe('when the months input is rendered', () => {
-      it('it has a default value of 10000', () => {
+      it('it has a default value of 0', () => {
         expect(screen.getByTestId('investmentTermMonths-input')).toHaveValue(0)
       })
 
@@ -67,13 +67,13 @@ describe(Home, () => {
     describe('when the stat blocks are rendered', () => {
       describe('when the total interest earned block is rendered', () => {
         it('it contains the expected total interest', () => {
-          expect(screen.getByTestId('total-interest-earned')).toContainHTML('$330')
+          expect(screen.getByTestId('total-interest-earned')).toContainHTML('$330.00')
         })
       })
 
       describe('when the final balance earned block is rendered', () => {
         it('it contains the expected final balance', () => {
-          expect(screen.getByTestId('final-balance')).toContainHTML('$10330')
+          expect(screen.getByTestId('final-balance')).toContainHTML('$10330.00')
         })
       })
     })
@@ -94,19 +94,19 @@ describe(Home, () => {
     })
 
     it('updates the interest earned', () => {
-      expect(interestEarnedStatBlock).toContainHTML('$330')
+      expect(interestEarnedStatBlock).toContainHTML('$330.00')
 
       fireEvent.change(initialInvestmentInput, { target: { value: '10500' } })
 
-      expect(interestEarnedStatBlock).toContainHTML('$347')
+      expect(interestEarnedStatBlock).toContainHTML('$347.00')
     })
 
     it('updates the final balance', () => {
-      expect(finalBalanceStatBlock).toContainHTML('$10330')
+      expect(finalBalanceStatBlock).toContainHTML('$10330.00')
 
       fireEvent.change(initialInvestmentInput, { target: { value: '10500' } })
 
-      expect(finalBalanceStatBlock).toContainHTML('$10847')
+      expect(finalBalanceStatBlock).toContainHTML('$10847.00')
     })
   })
 
@@ -129,19 +129,19 @@ describe(Home, () => {
     })
 
     it('updates the interest earned', () => {
-      expect(interestEarnedStatBlock).toContainHTML('$330')
+      expect(interestEarnedStatBlock).toContainHTML('$330.00')
 
       fireEvent.click(monthlyPayoutButton)
 
-      expect(interestEarnedStatBlock).toContainHTML('$335')
+      expect(interestEarnedStatBlock).toContainHTML('$335.00')
     })
 
     it('updates the final balance', () => {
-      expect(finalBalanceStatBlock).toContainHTML('$10330')
+      expect(finalBalanceStatBlock).toContainHTML('$10330.00')
 
       fireEvent.click(monthlyPayoutButton)
 
-      expect(finalBalanceStatBlock).toContainHTML('$10335')
+      expect(finalBalanceStatBlock).toContainHTML('$10335.00')
     })
   })
 })

@@ -19,13 +19,13 @@ describe(validateInput, () => {
 describe(getTotalMonths, () => {
   describe('when the investment is less than a year', () => {
     it('returns the number of months', () => {
-      expect(getTotalMonths(0, 11)).toEqual(11)
+      expect(getTotalMonths({years: 0, months: 11})).toEqual(11)
     })
   })
 
   describe('when the investment is greater than a year', () => {
     it('returns the number of months + the number of years in months', () => {
-      expect(getTotalMonths(1, 11)).toEqual(23)
+      expect(getTotalMonths({years: 1, months: 11})).toEqual(23)
     })
   })
 })
@@ -55,13 +55,13 @@ describe(parseErrorMessages, () => {
 describe(getTotalYearsInDecimalValue, () => {
   describe('when the investment is less than a year', () => {
     it('returns the number of months in a decimal', () => {
-      expect(getTotalYearsInDecimalValue(0, 6)).toEqual(0.5)
+      expect(getTotalYearsInDecimalValue({ years: 0, months: 6 })).toEqual(0.5)
     })
   })
 
   describe('when the investment is greater than a year', () => {
     it('returns the number of months + the number of years in months', () => {
-      expect(getTotalYearsInDecimalValue(1, 6)).toEqual(1.5)
+      expect(getTotalYearsInDecimalValue({ years: 1, months: 6 })).toEqual(1.5)
     })
   })
 })
