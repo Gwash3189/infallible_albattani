@@ -82,7 +82,7 @@ export function calculateCompoundInterest (input: ParsedCalculationInputs, numbe
 }
 
 export function calculateAndPayMonthly (input: ParsedCalculationInputs): CalculationOutputs {
-  const numberOfReinvestments = getTotalMonths({ years: input.years, months: input.months }) // find how many quarters are in the decimal (3 years in months is 36. 36 / 3 is 12)
+  const numberOfReinvestments = getTotalMonths({ years: input.years, months: input.months })
   const { total, interestEarned } = calculateCompoundInterest(input, numberOfReinvestments)
 
   return {
