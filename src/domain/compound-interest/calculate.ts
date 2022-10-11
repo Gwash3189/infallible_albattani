@@ -105,7 +105,7 @@ export function calculateAndPayQuarterly (input: ParsedCalculationInputs): Calcu
 }
 
 export function calculateAndPayAnnually (input: ParsedCalculationInputs): CalculationOutputs {
-  const totalYears = getTotalYearsInDecimalValue({ years: input.years, months: input.months }) // 3 years and 0 months -> 3.}0
+  const totalYears = getTotalYearsInDecimalValue({ years: input.years, months: input.months }) // 3 years and 0 months -> 3.0
   const numberOfReinvestments = Math.floor(totalYears) // its only reinvested once a year, so round down any decimals
   const { total, interestEarned } = calculateCompoundInterest(input, numberOfReinvestments)
 
