@@ -19,13 +19,13 @@ describe(validateInput, () => {
 describe(getTotalMonths, () => {
   describe('when the investment is less than a year', () => {
     it('returns the number of months', () => {
-      expect(getTotalMonths({years: 0, months: 11})).toEqual(11)
+      expect(getTotalMonths({ years: 0, months: 11 })).toEqual(11)
     })
   })
 
   describe('when the investment is greater than a year', () => {
     it('returns the number of months + the number of years in months', () => {
-      expect(getTotalMonths({years: 1, months: 11})).toEqual(23)
+      expect(getTotalMonths({ years: 1, months: 11 })).toEqual(23)
     })
   })
 })
